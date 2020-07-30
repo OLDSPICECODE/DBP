@@ -51,8 +51,10 @@ def login():
         error = "no existen usuarios todavia. Se el primero :D y haz click en sign in"
     return render_template('login.html',error=error)
 
-@app.route('/home')
+@app.route('/home', methods=['GET','POST'])
 def home():
+    if request.method == 'POST':
+        return redirect(url_for('work'))
     return render_template('home.html', user = [x for x in usuarios if x.id == session['user_id']][0])
 
 @app.route('/work')
